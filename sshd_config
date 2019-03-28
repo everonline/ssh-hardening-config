@@ -1,0 +1,93 @@
+# TCP Port
+Port 22
+
+# SSH2
+Protocol 2
+
+# Bind All Interfaces
+ListenAddress 0.0.0.0
+
+# RSA / Ed25519 Host Key Only
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+# Privilege Separation
+UsePrivilegeSeparation sandbox
+
+# Client timeout (5 minutes x 2)
+ClientAliveInterval 300
+ClientAliveCountMax 2
+
+# Compression (After Auth)
+Compression delayed
+
+# No Root
+PermitRootLogin no
+
+# No Empty Passwords
+PermitEmptyPasswords no
+
+# Login Tries
+
+MaxAuthTries 1
+MaxSessions 2
+
+# Increase Log
+SyslogFacility AUTH
+LogLevel VERBOSE
+
+# Check User Permissions Before Allowing Access
+StrictModes yes
+
+# 2 FA
+AuthenticationMethods publickey,password
+
+# Password Time Counter
+LoginGraceTime 20
+
+# Key Exchange
+KexAlgorithms curve25519-sha256@libssh.org
+
+# Ciphers
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr
+
+# MACs
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com
+
+# Auth Keys File
+AuthorizedKeysFile .ssh/authorized_keys
+
+# Don't Read User ~/.rhosts ~/.shosts Files
+IgnoreRhosts yes
+
+# Disable Unused Authentication Schemes
+HostbasedAuthentication no
+ChallengeResponseAuthentication no
+KerberosAuthentication no
+GSSAPIAuthentication no
+
+# Needed For Google Authenticator
+UsePAM yes
+
+# X11 Support
+AllowAgentForwarding no
+AllowTcpForwarding no
+X11Forwarding no
+
+# Disable Message
+PrintMotd no
+
+# TCP Keep Alive (non-tunneled, disabled)
+TCPKeepAlive yes
+
+# Allow Client 2 Pass Locale Environment Variables
+AcceptEnv LANG LC_*
+
+# Disable DNS
+UseDNS no
+
+# Override Default Of No Subsystems
+Subsystem sftp /usr/libexec/openssh/sftp-server
+
+# Specific Users
+AllowGroups user1
