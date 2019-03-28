@@ -28,7 +28,6 @@ PermitRootLogin no
 PermitEmptyPasswords no
 
 # Login Tries
-
 MaxAuthTries 1
 MaxSessions 2
 
